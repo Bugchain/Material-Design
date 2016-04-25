@@ -16,4 +16,10 @@
     <color name="fab_menu_color_2">#0091EA</color>
     <color name="fab_menu_color_3">#EF6C00</color>
 
+    <color name="bottom_navigation_bar_color_1">#3F51B5</color>
+    <color name="bottom_navigation_bar_color_2">#009688</color>
+    <color name="bottom_navigation_bar_color_3">#1B5E20</color>
+    <color name="bottom_navigation_bar_color_4">#607D8B</color>
+    <color name="bottom_navigation_bar_color_5">#673AB7</color>
+
 </resources>

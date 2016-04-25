@@ -35,7 +35,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder>{
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.place_item_view,parent,false);
+                .inflate(R.layout.place_item_view_holder,parent,false);
         return new ViewHolder(view);
     }
 

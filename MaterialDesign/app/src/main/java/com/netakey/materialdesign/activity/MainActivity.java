@@ -1,6 +1,7 @@
 package com.netakey.materialdesign.activity;
 
 import android.animation.AnimatorSet;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -62,9 +63,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.fab:
+                startActivity(new Intent(MainActivity.this,BottomBarActivity.class));
 
-                isShowFabMenu = !isShowFabMenu;
-                displayFabMenu(isShowFabMenu);
+               // isShowFabMenu = !isShowFabMenu;
+                //displayFabMenu(isShowFabMenu);
 
                 break;
         }
