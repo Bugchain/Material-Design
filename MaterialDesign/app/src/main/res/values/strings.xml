@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Material Design</string>
+
+    <string name="contact_developer">ติดต่อนักพัฒนา</string>
+    <string name="setting">การตั้งค่า</string>
+
 </resources>

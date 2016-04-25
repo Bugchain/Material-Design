@@ -20,9 +20,11 @@ android {
 }
 
 dependencies {
+    final SUPPORT_LIBRARY_VERSION = '23.3.0'
+
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:design:23.3.0'
-    compile 'com.android.support:recyclerview-v7:23.3.0'
-    compile 'com.android.support:cardview-v7:23.3.0'
-    compile 'com.sa90.materialarcmenu:library:1.4'
+    compile "com.android.support:design:$SUPPORT_LIBRARY_VERSION"
+    compile "com.android.support:recyclerview-v7:$SUPPORT_LIBRARY_VERSION"
+    compile "com.android.support:cardview-v7:$SUPPORT_LIBRARY_VERSION"
+
 }
