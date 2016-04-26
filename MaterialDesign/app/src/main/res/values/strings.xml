@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Material Design</string>
 
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
     <string name="contact_developer">ติดต่อนักพัฒนา</string>
     <string name="setting">การตั้งค่า</string>
 
@@ -11,5 +14,6 @@
     <string name="music">Music</string>
     <string name="movie_and_tv">Movie &amp; TV</string>
     <string name="store">Store</string>
+    <string name="mail">Mail</string>
 
 </resources>

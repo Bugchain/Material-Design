@@ -57,7 +57,7 @@ public class BottomBarActivity extends AppCompatActivity implements BottomNaviga
         bottomNavigationBar
                 .addItem(new BottomNavigationItem(R.drawable.ic_home_white, getResources().getString(R.string.home)).setActiveColorResource(R.color.bottom_navigation_bar_color_1))
                 .addItem(new BottomNavigationItem(R.drawable.ic_book_white, getResources().getString(R.string.books)).setActiveColorResource(R.color.bottom_navigation_bar_color_2))
-                .addItem(new BottomNavigationItem(R.drawable.ic_my_library_music_white, getResources().getString(R.string.music)).setActiveColorResource(R.color.bottom_navigation_bar_color_3))
+                .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white, getResources().getString(R.string.music)).setActiveColorResource(R.color.bottom_navigation_bar_color_3))
                 .addItem(new BottomNavigationItem(R.drawable.ic_tv_white, getResources().getString(R.string.movie_and_tv)).setActiveColorResource(R.color.bottom_navigation_bar_color_4))
                 .addItem(new BottomNavigationItem(R.drawable.ic_play_shopping_bag_white, getResources().getString(R.string.store)).setActiveColorResource(R.color.bottom_navigation_bar_color_5))
                 .initialise();

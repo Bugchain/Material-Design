@@ -1,148 +1,171 @@
 package com.netakey.materialdesign.activity;
 
-import android.animation.AnimatorSet;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.AnimationUtils;
-import android.widget.FrameLayout;
 
+import com.ashokvarma.bottomnavigation.BottomNavigationBar;
+import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.netakey.materialdesign.R;
-import com.netakey.materialdesign.adapter.PlaceAdapter;
-import com.netakey.materialdesign.model.Place;
-import com.netakey.materialdesign.tools.ItemDecoration;
+import com.netakey.materialdesign.fragment.BookFragment;
+import com.netakey.materialdesign.fragment.HomeFragment;
+import com.netakey.materialdesign.fragment.MovieFragment;
+import com.netakey.materialdesign.fragment.MusicFragment;
+import com.netakey.materialdesign.fragment.StoreFragment;
 
 /**
  * Created by POSEIDON on 25/4/2559.
  */
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener,
+        BottomNavigationBar.OnTabSelectedListener,NavigationView.OnNavigationItemSelectedListener{
 
-    private boolean isShowFabMenu;
-    private FloatingActionButton fabMenu;
+    private int lastPosition = -1;
+    private ActionBar actionBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initialActionBar();
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        int space = (int)getResources().getDimension(R.dimen.grid_spacing_x_small);
-        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
-        recyclerView.addItemDecoration(new ItemDecoration(space));
-        recyclerView.setAdapter(new PlaceAdapter(new Place().setup()));
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if(isShowFabMenu){
-                    isShowFabMenu = false;
-                    displayFabMenu(false);
-                }
-            }
-        });
-        fabMenu = (FloatingActionButton) findViewById(R.id.fab);
-        fabMenu.setOnClickListener(this);
+        initialActionBar();
+        initialBottomNavigationBar();
+        displayFragment(0);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigationView);
+        navigationView.setNavigationItemSelectedListener(this);
 
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.fab:
-                startActivity(new Intent(MainActivity.this,BottomBarActivity.class));
 
-               // isShowFabMenu = !isShowFabMenu;
-                //displayFabMenu(isShowFabMenu);
+    }
+    private void displayFragment(int position){
+        if(lastPosition != position){
+            lastPosition = position;
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.setCustomAnimations(R.anim.fade_in,R.anim.fade_out);
 
-                break;
+            switch (position){
+                case 0:
+                    transaction.replace(R.id.contentContainer, HomeFragment.newInstance()).commit();
+                    updateActionBarTitle(getResources().getString(R.string.home));
+                    break;
+                case 1:
+                    transaction.replace(R.id.contentContainer, BookFragment.newInstance()).commit();
+                    updateActionBarTitle(getResources().getString(R.string.books));
+                    break;
+                case 2:
+                    transaction.replace(R.id.contentContainer, MusicFragment.newInstance()).commit();
+                    updateActionBarTitle(getResources().getString(R.string.music));
+                    break;
+                case 3:
+                    transaction.replace(R.id.contentContainer, MovieFragment.newInstance()).commit();
+                    updateActionBarTitle(getResources().getString(R.string.movie_and_tv));
+                    break;
+                case 4:
+                    transaction.replace(R.id.contentContainer, StoreFragment.newInstance()).commit();
+                    updateActionBarTitle(getResources().getString(R.string.store));
+                    break;
+                default:
+                    transaction.replace(R.id.contentContainer, HomeFragment.newInstance()).commit();
+                    updateActionBarTitle(getResources().getString(R.string.home));
+                    break;
+            }
+        }
+
+    }
+    private void initialActionBar() {
+        actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white);
+            updateActionBarTitle(getResources().getString(R.string.home));
         }
     }
 
-    private void initialActionBar() {
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(false);
-            actionBar.setDisplayShowTitleEnabled(true);
-            actionBar.setTitle(getResources().getString(R.string.app_name));
+
+    private void updateActionBarTitle(String title){
+        if(actionBar != null)
+            actionBar.setTitle(title);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+
+            return true;
         }
+        return super.onOptionsItemSelected(item);
+    }
+    private void initialBottomNavigationBar(){
+        BottomNavigationBar bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
+        bottomNavigationBar.setMode(BottomNavigationBar.MODE_SHIFTING);
+        bottomNavigationBar
+                .addItem(new BottomNavigationItem(R.drawable.ic_home_white, getResources().getString(R.string.home)).setActiveColorResource(R.color.bottom_navigation_bar_color_1))
+                .addItem(new BottomNavigationItem(R.drawable.ic_book_white, getResources().getString(R.string.books)).setActiveColorResource(R.color.bottom_navigation_bar_color_2))
+                .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white, getResources().getString(R.string.music)).setActiveColorResource(R.color.bottom_navigation_bar_color_3))
+                .addItem(new BottomNavigationItem(R.drawable.ic_tv_white, getResources().getString(R.string.movie_and_tv)).setActiveColorResource(R.color.bottom_navigation_bar_color_4))
+                .addItem(new BottomNavigationItem(R.drawable.ic_play_shopping_bag_white, getResources().getString(R.string.store)).setActiveColorResource(R.color.bottom_navigation_bar_color_5))
+                .initialise();
+
+        bottomNavigationBar.setTabSelectedListener(this);
+    }
+    @Override
+    public void onTabSelected(int position) {
+        displayFragment(position);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main,menu);
+    public void onTabUnselected(int position) {
+
+    }
+
+    @Override
+    public void onTabReselected(int position) {
+
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
+        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    private void displayFabMenu(boolean display){
-        FloatingActionButton fabMenuEdit = (FloatingActionButton)findViewById(R.id.fab_edit);
-        FloatingActionButton fabMenuMail = (FloatingActionButton)findViewById(R.id.fab_mail);
-        FloatingActionButton fabMenuPin = (FloatingActionButton)findViewById(R.id.fab_pin);
-
-
-        FrameLayout.LayoutParams params1 = (FrameLayout.LayoutParams)fabMenuEdit.getLayoutParams();
-        FrameLayout.LayoutParams params2 = (FrameLayout.LayoutParams)fabMenuMail.getLayoutParams();
-        FrameLayout.LayoutParams params3 = (FrameLayout.LayoutParams)fabMenuPin.getLayoutParams();
-
-        int fabWidth = fabMenuEdit.getWidth();
-        int fabHeight = fabMenuEdit.getHeight();
-
-        if(display){
-            params1.rightMargin += (int)(fabWidth * 1.7);
-            params1.bottomMargin += (int)(fabHeight * 0.25);
-            params2.rightMargin += (int)(fabWidth * 1.5);
-            params2.bottomMargin += (int)(fabHeight * 1.5);
-            params3.rightMargin += (int)(fabWidth * 0.25);
-            params3.bottomMargin += (int)(fabHeight * 1.7);
-            fabMenuEdit.setLayoutParams(params1);
-            fabMenuMail.setLayoutParams(params2);
-            fabMenuPin.setLayoutParams(params3);
-            Animation fab1Show = AnimationUtils.loadAnimation(this,R.anim.fab_menu_1_show);
-            Animation fab2Show = AnimationUtils.loadAnimation(this,R.anim.fab_menu_2_show);
-            Animation fab3Show = AnimationUtils.loadAnimation(this,R.anim.fab_menu_3_show);
-            fabMenuEdit.setClickable(true);
-            fabMenuMail.setClickable(true);
-            fabMenuPin.setClickable(true);
-            fabMenuEdit.startAnimation(fab1Show);
-            fabMenuMail.startAnimation(fab2Show);
-            fabMenuPin.startAnimation(fab3Show);
-
-        }else {
-            params1.rightMargin -= (int)(fabWidth * 1.7);
-            params1.bottomMargin -= (int)(fabHeight * 0.25);
-            params2.rightMargin -= (int)(fabWidth * 1.5);
-            params2.bottomMargin -= (int)(fabHeight * 1.5);
-            params3.rightMargin -= (int)(fabWidth * 0.25);
-            params3.bottomMargin -= (int)(fabHeight * 1.7);
-            fabMenuEdit.setLayoutParams(params1);
-            fabMenuMail.setLayoutParams(params2);
-            fabMenuPin.setLayoutParams(params3);
-            Animation fab1Hide = AnimationUtils.loadAnimation(this,R.anim.fab_menu_1_hide);
-            Animation fab2Hide = AnimationUtils.loadAnimation(this,R.anim.fab_menu_2_hide);
-            Animation fab3Hide = AnimationUtils.loadAnimation(this,R.anim.fab_menu_3_hide);
-            fabMenuEdit.setClickable(false);
-            fabMenuMail.setClickable(false);
-            fabMenuPin.setClickable(false);
-            fabMenuEdit.startAnimation(fab1Hide);
-            fabMenuMail.startAnimation(fab2Hide);
-            fabMenuPin.startAnimation(fab3Hide);
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
         }
     }
+
 
 }

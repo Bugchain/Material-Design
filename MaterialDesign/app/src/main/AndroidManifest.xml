@@ -16,7 +16,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.HomeActivity"/>
-        <activity android:name=".activity.MainActivity"/>
+
+        <activity android:name=".activity.MainActivity"
+            android:label="@string/home"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity android:name=".activity.PlaceDetailActivity"/>
         <activity android:name=".activity.BottomBarActivity"/>
 

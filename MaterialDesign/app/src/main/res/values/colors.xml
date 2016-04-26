@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#0277BD</color>
-    <color name="colorPrimaryDark">#01579B</color>
+    <color name="colorPrimary">#00695C</color>
+    <color name="colorPrimaryDark">#004D40</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="colorPrimaryOpacity">#400277BD</color>
+    <color name="colorPrimaryOpacity">#4000695C</color>
     <color name="whiteOpacity">#40FFFFFF</color>
 
     <color name="dark_text_primary">#424242</color>
@@ -16,10 +16,10 @@
     <color name="fab_menu_color_2">#0091EA</color>
     <color name="fab_menu_color_3">#EF6C00</color>
 
-    <color name="bottom_navigation_bar_color_1">#3F51B5</color>
-    <color name="bottom_navigation_bar_color_2">#009688</color>
-    <color name="bottom_navigation_bar_color_3">#1B5E20</color>
-    <color name="bottom_navigation_bar_color_4">#607D8B</color>
-    <color name="bottom_navigation_bar_color_5">#673AB7</color>
+    <color name="bottom_navigation_bar_color_1">#00695C</color>
+    <color name="bottom_navigation_bar_color_2">#00796B</color>
+    <color name="bottom_navigation_bar_color_3">#00897B</color>
+    <color name="bottom_navigation_bar_color_4">#009688</color>
+    <color name="bottom_navigation_bar_color_5">#26A69A</color>
 
 </resources>

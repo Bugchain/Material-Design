@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_camera"
+            android:icon="@drawable/ic_home_white"
+            android:title="@string/home" />
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/ic_book_white"
+            android:title="@string/books" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_mail_white"
+            android:title="@string/mail" />
+        <item
+            android:id="@+id/nav_manage"
+            android:icon="@drawable/ic_music_note_white"
+            android:title="@string/music" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_tv_white"
+                android:title="@string/movie_and_tv" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_play_shopping_bag_white"
+                android:title="@string/store" />
+        </menu>
+    </item>
+
+</menu>
