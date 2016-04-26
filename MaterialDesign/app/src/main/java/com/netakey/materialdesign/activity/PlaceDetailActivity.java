@@ -2,11 +2,14 @@ package com.netakey.materialdesign.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,12 +23,16 @@ import com.netakey.materialdesign.tools.Utils;
  */
 public class PlaceDetailActivity extends AppCompatActivity {
 
+    private FloatingActionButton fab;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_detail);
 
         initialToolbar();
+
+        fab = (FloatingActionButton)findViewById(R.id.fab);
 
         Place place = (Place)getIntent().getExtras().get(Const.EXTRA_OBJECT);
 
@@ -64,4 +71,23 @@ public class PlaceDetailActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Animation fabIn = AnimationUtils.loadAnimation(this,R.anim.fab_in_detail);
+        fab.startAnimation(fabIn);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Animation fabIn = AnimationUtils.loadAnimation(this,R.anim.fab_out_detail);
+        fab.startAnimation(fabIn);
+        super.onBackPressed();
+
+    }
 }

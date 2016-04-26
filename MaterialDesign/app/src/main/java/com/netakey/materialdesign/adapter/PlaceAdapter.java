@@ -33,7 +33,6 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder>{
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.place_item_view_holder,parent,false);
         return new ViewHolder(view);
@@ -41,6 +40,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
+
         final Place place = list.get(position);
         holder.icon.setImageResource(place.getImageId());
         holder.textTitle.setText(place.getTitle());
