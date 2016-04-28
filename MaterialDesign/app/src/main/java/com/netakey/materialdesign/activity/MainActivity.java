@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -31,6 +32,8 @@ import com.netakey.materialdesign.fragment.StoreFragment;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,
         BottomNavigationBar.OnTabSelectedListener,NavigationView.OnNavigationItemSelectedListener{
 
+    private static final String TAG = MainActivity.class.getSimpleName();
+
     private int lastPosition = -1;
     private ActionBar actionBar;
 
@@ -50,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
+
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigationView);
@@ -61,8 +65,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_contact,menu);
+        return true;
+    }
+
+
     private void displayFragment(int position){
         if(lastPosition != position){
+            Log.d(TAG,"Position : " + position);
             lastPosition = position;
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.setCustomAnimations(R.anim.fade_in,R.anim.fade_out);
@@ -117,6 +131,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
 
+            return true;
+        }else if(item.getItemId() == R.id.action_contact){
+            startActivity(new Intent(MainActivity.this,ContactActivity.class));
+            overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
             return true;
         }
         return super.onOptionsItemSelected(item);

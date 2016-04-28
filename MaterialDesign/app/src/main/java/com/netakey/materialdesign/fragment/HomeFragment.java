@@ -47,7 +47,7 @@ public class HomeFragment extends Fragment{
                     public void run() {
                       swipeRefreshLayout.setRefreshing(false);
                     }
-                },3000);
+                },1500);
             }
         });
         RecyclerView recyclerView = (RecyclerView)rootView.findViewById(R.id.recyclerView);

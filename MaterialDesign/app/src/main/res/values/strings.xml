@@ -7,6 +7,14 @@
     <string name="contact_developer">ติดต่อนักพัฒนา</string>
     <string name="setting">การตั้งค่า</string>
 
+    <string name="email_address_title">chain.chaiyaphat@gmail.com</string>
+    <string name="email_address_link">mailto:</string>
+    <string name="facebook_title">facebook.com/bugchaindevelop</string>
+    <string name="facebook_link">http://www.facebook.com/bugchaindevelop</string>
+    <string name="google_plus_title">plus.google.com/bugchain</string>
+    <string name="google_plus_link">https://plus.google.com/u/0/104233580644327445747</string>
+
+
     <string name="bottom_bar_title">BottomNavigationBar</string>
 
     <string name="home">Home</string>
